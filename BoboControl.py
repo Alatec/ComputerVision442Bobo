@@ -19,6 +19,7 @@ headTurn = 6000
 headTilt = 6000
 motors = 6000
 turn = 6000
+amount = 400
 
 
 for event in gamepad.read_loop():
@@ -27,14 +28,14 @@ for event in gamepad.read_loop():
         if keyevent.keystate == KeyEvent.key_down:
             if keyevent.keycode[0] == 'BTN_A':
                 print("X")
-                motors -= 200
+                motors -= amount
                 if (motors < 1510):
                     motors = 1510
                 print(motors)
                 bobo.setTarget(MOTORS, motors)
             elif keyevent.keycode[1] == 'BTN_Y':
                 print("Square")
-                turn -= 200
+                turn -= amount
                 if (turn < 2110):
                     turn = 2110
                 print(turn)
@@ -42,14 +43,14 @@ for event in gamepad.read_loop():
 
             elif keyevent.keycode[0] == 'BTN_B':
                 print("Circle")
-                turn += 200
+                turn += amount
                 if (turn > 7400):
                     turn = 7400
                 print(turn)
                 bobo.setTarget(TURN, turn)
             elif keyevent.keycode[1] == 'BTN_X':
                 print("Triangle")
-                motors += 200
+                motors += amount
                 if (motors > 7900):
                     motors = 7900
                 print(motors)
