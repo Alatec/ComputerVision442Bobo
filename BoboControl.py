@@ -2,11 +2,13 @@
 
 from evdev import InputDevice, categorize, ecodes, KeyEvent
 
-gamepad = InputDevice('/dev/input/event0')
+gamepad = InputDevice('/dev/input/event4')
 
 for event in gamepad.read_loop():
     if event.type == ecodes.EV_KEY:
         keyevent = categorize(event)
+        print(event)
+        print(keyevent)
         if keyevent.keystate == KeyEvent.key_down:
             if keyevent.keycode[0] == 'BTN_A':
                 print
