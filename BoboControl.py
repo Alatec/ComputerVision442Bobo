@@ -11,7 +11,7 @@ HEADTURN = 3
 
 bobo = maestro.Controller()
 
-gamepad = InputDevice('/dev/input/event0')
+gamepad = InputDevice('/dev/input/event3')
 
 bobo = maestro.Controller()
 body = 6000
