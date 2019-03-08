@@ -56,7 +56,15 @@ for event in gamepad.read_loop():
                 print(motors)
                 bobo.setTarget(MOTORS, motors)
             else:
-                turn = 6000
-                bobo.setTarget(TURN, turn)
-                motors = 6000
-                bobo.setTarget(MOTORS, motors)
+                while turn != 6000:
+                    if turn > 6000:
+                        turn -= 10
+                    else:
+                        turn += 10
+                    bobo.setTarget(TURN, turn)
+                while motors != 6000:
+                    if motors > 6000:
+                        turn -= 10
+                    else:
+                        motors += 10
+                    bobo.setTarget(MOTORS, motors)
