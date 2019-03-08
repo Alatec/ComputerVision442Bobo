@@ -8,12 +8,11 @@ for event in gamepad.read_loop():
     if event.type == ecodes.EV_KEY:
         keyevent = categorize(event)
         if keyevent.keystate == KeyEvent.key_down:
-            print(keyevent.keycode)
-            if keyevent.keycode == 'BTN_A':
-                print("Back")
-            elif keyevent.keycode == 'BTN_Y':
-                print("Forward")
-            elif keyevent.keycode == 'BTN_B':
-                print("Right")
-            elif keyevent.keycode == 'BTN_X':
-                print("Left")
+            if keyevent.keycode[0] == 'BTN_A':
+                print("X")
+            elif keyevent.keycode[1] == 'BTN_Y':
+                print("Triangle")
+            elif keyevent.keycode[0] == 'BTN_B':
+                print("Circle")
+            elif keyevent.keycode[1] == 'BTN_X':
+                print("Square")
