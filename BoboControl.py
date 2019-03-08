@@ -8,7 +8,9 @@ for event in gamepad.read_loop():
     if event.type == ecodes.EV_KEY:
         keyevent = categorize(event)
         print(event)
+        print("-----------------------")
         print(keyevent)
+        print("+++++++++++++++++++++++")
         if keyevent.keystate == KeyEvent.key_down:
             if keyevent.keycode[0] == 'BTN_A':
                 print("Back")
