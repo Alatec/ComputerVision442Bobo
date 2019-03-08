@@ -25,6 +25,8 @@ class BoboFace:
     def reset(self):
         self.face = np.zeros((480, 800, 3), np.uint8)
 
+cv2.namedWindow("Bobo", cv2.WND_PROP_FULLSCREEN)
+cv2.setWindowProperty("Bobo",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 boboFace = BoboFace()
 #while True:
 boboFace.reset()
