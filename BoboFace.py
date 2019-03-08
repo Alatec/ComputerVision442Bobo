@@ -26,18 +26,17 @@ class BoboFace:
         self.face = np.zeros((480, 800, 3), np.uint8)
 
 boboFace = BoboFace()
-while True:
-    boboFace.reset()
-    boboFace.eye("L", True)
-    boboFace.eye("R", True)
-    cv2.imshow("Bobo", boboFace.drawFace())
-    time.sleep(1)
-    boboFace.reset()
-    boboFace.eye("L", False)
-    boboFace.eye("R", False)
-    cv2.imshow("Bobo", boboFace.drawFace())
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-        quit()
+#while True:
+boboFace.reset()
+boboFace.eye("L", True)
+boboFace.eye("R", True)
+cv2.imshow("Bobo", boboFace.drawFace())
+cv2.waitKey(0)
+boboFace.reset()
+boboFace.eye("L", False)
+boboFace.eye("R", False)
+cv2.imshow("Bobo", boboFace.drawFace())
+cv2.waitKey(0)
+
 
 
