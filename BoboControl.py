@@ -34,20 +34,19 @@ for event in gamepad.read_loop():
                 bobo.setTarget(MOTORS, motors)
             elif keyevent.keycode[1] == 'BTN_Y':
                 print("Square")
-                motors -= 200
-                if (motors < 1510):
-                    motors = 1510
-                print(motors)
-                bobo.setTarget(MOTORS, motors)
+                turn -= 200
+                if (turn < 2110):
+                    turn = 2110
+                print(turn)
+                bobo.setTarget(TURN, turn)
 
             elif keyevent.keycode[0] == 'BTN_B':
                 print("Circle")
-                motors += 200
-                if (motors < 1510):
-                    motors = 1510
-                print(motors)
-                bobo.setTarget(MOTORS, motors)
-
+                turn += 200
+                if (turn > 7400):
+                    turn = 7400
+                print(turn)
+                bobo.setTarget(TURN, turn)
             elif keyevent.keycode[1] == 'BTN_X':
                 print("Triangle")
                 motors += 200
