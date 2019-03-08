@@ -11,14 +11,10 @@ for event in gamepad.read_loop():
         print(keyevent)
         if keyevent.keystate == KeyEvent.key_down:
             if keyevent.keycode[0] == 'BTN_A':
-                print
-                "Back"
+                print("Back")
             elif keyevent.keycode == 'BTN_Y':
-                print
-                "Forward"
+                print("Forward")
             elif keyevent.keycode == 'BTN_B':
-                print
-                "Right"
+                print("Right")
             elif keyevent.keycode == 'BTN_X':
-                print
-                "Left"
+                print("Left")
