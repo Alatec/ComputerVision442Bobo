@@ -53,7 +53,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     center[0] = center[0]//len(contours)
     center[1] = center[1] // len(contours)
     print(center)
-    cv2.circle(image, (int(center[0]), int(center[1])), 4, (255, 50, 200))
+    cv2.circle(image, (int(center[0]), int(center[1])), 15, (255, 50, 200), thickness=cv2.FILLED)
 
     # show the frame
 
