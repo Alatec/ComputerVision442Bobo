@@ -72,7 +72,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     cv2.circle(image, (int(center[0]), int(center[1])), 15, (255, 50, 200), thickness=cv2.FILLED)
 
-    if center[1] < 270 and center[i] > 10:
+    if center[1] < 270 and center[1] > 10:
         bobo.setTarget(TURN, 5000)
     elif center[1] > 370:
         bobo.setTarget(TURN, 7000)
