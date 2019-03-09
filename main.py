@@ -21,7 +21,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
     #hsv = cv2.medianBlur(hsv, 5)
-    orange = cv2.inRange(hsv, (0, 20, 20), (90, 200, 170))
+    orange = cv2.inRange(hsv, (0, 148, 20), (15, 148, 230))
     orange = cv2.cvtColor(orange, cv2.COLOR_GRAY2BGR)
     image = cv2.bitwise_and(orange, image)
     #pic = cv2.Canny(image, 100, 170)
