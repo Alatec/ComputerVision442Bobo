@@ -37,6 +37,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     mask = cv2.erode(mask, (3,3))
     mask = cv2.dilate(mask, (3, 3))
+    mask = cv2.Canny(mask, 100, 170)
     contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     print(len(contours))
