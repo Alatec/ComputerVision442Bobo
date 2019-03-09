@@ -25,7 +25,9 @@ turn = 6000
 bobo.setTarget(TURN, turn)
 motors = 6000
 bobo.setTarget(MOTORS, motors)
-
+bobo.setTarget(BODY, 6000)
+bobo.setTarget(HEADTILT, 6000)
+bobo.setTarget(HEADTURN, 6000)
 for event in gamepad.read_loop():
     if event.type == ecodes.EV_KEY:
         keyevent = categorize(event)
