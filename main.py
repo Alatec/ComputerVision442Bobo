@@ -47,11 +47,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             M = cv2.moments(contours[i])
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
-            cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
+            #cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
             center[0] += cX
             center[1] += cY
-    center = center//len(contours)
-    cv2.circle(image, (center[0], center[1]), 4, (255, 50, 200))
+    center = center/len(contours)
+    cv2.circle(image, (int(center[0]), int(center[1])), 4, (255, 50, 200))
 
     # show the frame
 
