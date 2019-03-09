@@ -33,10 +33,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         if cv2.contourArea(contours[i]) > 100:
             x, y, w, h = cv2.boundingRect(contours[i])
             cv2.rectangle(orange, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.drawContours(orange, contours, i, (255, 0, 0), thickness=cv2.FILLED)
+            cv2.drawContours(image, contours, i, (255, 0, 0), thickness=cv2.FILLED)
     # show the frame
 
-    cv2.imshow("Frame", orange)
+    cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
