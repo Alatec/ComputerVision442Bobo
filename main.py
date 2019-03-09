@@ -22,8 +22,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
     #hsv = cv2.medianBlur(hsv, 5)
     orange = cv2.inRange(hsv, (54, 148, 134), (69, 184, 202))
-    orange = cv2.cvtColor(orange, cv2.COLOR_GRAY2BGR)
-    image = cv2.bitwise_and(orange, image)
+
+
 
     orange = cv2.medianBlur(orange, 5)
     contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
