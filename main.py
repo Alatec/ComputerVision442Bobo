@@ -6,9 +6,9 @@ import cv2
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (800, 480)
+camera.resolution = (640, 480)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(800, 480))
+rawCapture = PiRGBArray(camera, size=(640, 480))
 
 # allow the camera to warmup
 time.sleep(0.1)
@@ -21,7 +21,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
     hsv = cv2.medianBlur(hsv, 5)
-    orange = cv2.inRange(hsv, (10, 50, 50), (30, 180, 160))
+    orange = cv2.inRange(hsv, (0, 20, 20), (60, 180, 180))
     orange = cv2.cvtColor(orange, cv2.COLOR_GRAY2BGR)
     image = cv2.bitwise_and(orange, image)
     #pic = cv2.Canny(image, 100, 170)
