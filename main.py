@@ -5,6 +5,22 @@ import time
 import cv2
 import numpy as np
 
+import maestro
+
+MOTORS = 1
+TURN = 2
+BODY = 0
+HEADTILT = 4
+HEADTURN = 3
+
+bobo = maestro.Controller()
+body = 6000
+headTurn = 6000
+headTilt = 6000
+motors = 6000
+turn = 6000
+amount = 400
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (640, 480)
@@ -44,7 +60,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     center = [0,0]
     total = 0
     for i in range(len(contours)):
-        if cv2.contourArea(contours[i]) > 1000:
+        if cv2.contourArea(contours[i]) > 100:
             x, y, w, h = cv2.boundingRect(contours[i])
             #cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
             center[0] += x + w//2
@@ -55,6 +71,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     center[1] = center[1]/(total + 1)
 
     cv2.circle(image, (int(center[0]), int(center[1])), 15, (255, 50, 200), thickness=cv2.FILLED)
+
+    if center[1] < 270:
+        bobo.setTarget(TURN, 5400)
+    elif center[1] > 370:
+        bobo.setTarget(TURN, 6600)
+    else:
+        bobo.setTarget(TURN, 6000)
 
     # show the frame
 
