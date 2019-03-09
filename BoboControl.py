@@ -21,6 +21,10 @@ motors = 6000
 turn = 6000
 amount = 400
 
+turn = 6000
+bobo.setTarget(TURN, turn)
+motors = 6000
+bobo.setTarget(MOTORS, motors)
 
 for event in gamepad.read_loop():
     if event.type == ecodes.EV_KEY:
