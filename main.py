@@ -78,6 +78,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         bobo.setTarget(TURN, 5000)
     elif center[1] < 10:
         bobo.setTarget(TURN, 6000)
+    else:
+        bobo.setTarget(TURN, 6000)
 
     # show the frame
 
