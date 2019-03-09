@@ -28,12 +28,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     orange = cv2.medianBlur(orange, 5)
     contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    for i in range(len(contours)):
-
-        if cv2.contourArea(contours[i]) > 100:
-            x, y, w, h = cv2.boundingRect(contours[i])
-            cv2.rectangle(orange, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.drawContours(image, contours, i, (255, 0, 0), thickness=cv2.FILLED)
+    if len(contours) > 0:
+        cv2.drawContours(image, contours, 0, (255, 0, 0), thickness=cv2.FILLED)
+    # for i in range(len(contours)):
+    #
+    #     if cv2.contourArea(contours[i]) > 100:
+    #         x, y, w, h = cv2.boundingRect(contours[i])
+    #         cv2.rectangle(orange, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    #         cv2.drawContours(image, contours, i, (255, 0, 0), thickness=cv2.FILLED)
     # show the frame
 
     cv2.imshow("Frame", image)
