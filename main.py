@@ -50,8 +50,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             #cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
             center[0] += cX
             center[1] += cY
-    center[0] = center[0]//len(contours) + 1
-    center[1] = center[1] // len(contours) + 1
+    center[0] = center[0]//(len(contours) + 1)
+    center[1] = center[1] //(len(contours) + 1)
     print(center)
     cv2.circle(image, (int(center[0]), int(center[1])), 15, (255, 50, 200), thickness=cv2.FILLED)
 
