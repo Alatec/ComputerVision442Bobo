@@ -35,8 +35,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         if cv2.contourArea(contours[i]) > 100:
             cv2.drawContours(mask, contours, i, (255, 255, 255), thickness=cv2.FILLED)
 
-    # mask = cv2.erode(mask, (3,3))
-    # mask = cv2.dilate(mask, (3, 3))
+    mask = cv2.erode(mask, (9,9))
+    mask = cv2.dilate(mask, (9, 9))
     # mask = cv2.Canny(mask, 100, 170)
     contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
