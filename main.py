@@ -41,7 +41,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     # print(len(contours))
-    center = np.zeros(2)
+    center = np.zeros(2, np.uint8)
     for i in range(len(contours)):
         if cv2.contourArea(contours[i]) > 100:
             M = cv2.moments(contours[i])
