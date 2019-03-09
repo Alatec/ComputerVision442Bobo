@@ -19,12 +19,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
-    image = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-    orange = cv2.inRange(image, (0, 70, 70), (15, 180, 160))
+    hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
+    orange = cv2.inRange(hsv, (0, 70, 70), (15, 180, 160))
+    orange = cv2.cvtColor(orange, cv2.COLOR_GRAY2BGR)
+    image = cv2.bitwise_and(orange, image)
     #pic = cv2.Canny(image, 100, 170)
     # show the frame
 
-    cv2.imshow("Frame", orange)
+    cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
