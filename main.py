@@ -31,15 +31,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     mask = np.empty_like(orange)
 
-    for i in range(len(contours)):
-        if cv2.contourArea(contours[i]) > 100:
-            cv2.drawContours(mask, contours, i, (255, 255, 255), thickness=cv2.FILLED)
+    # for i in range(len(contours)):
+    #     if cv2.contourArea(contours[i]) > 100:
+    #         cv2.drawContours(mask, contours, i, (255, 255, 255), thickness=cv2.FILLED)
 
-    mask = cv2.erode(mask, (5, 5))
-    mask = cv2.dilate(mask, (5, 5))
+    # mask = cv2.erode(mask, (5, 5))
+    # mask = cv2.dilate(mask, (5, 5))
     # mask = cv2.Canny(mask, 100, 170)
-    contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
+    # contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # print(len(contours))
     center = [0,0]
     total = 0
