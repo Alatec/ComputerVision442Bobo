@@ -30,7 +30,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     for i in range(len(contours)):
 
-        if cv2.contourArea(contours[i]) > 10000:
+        if cv2.contourArea(contours[i]) > 100:
             x, y, w, h = cv2.boundingRect(contours[i])
             cv2.rectangle(orange, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.drawContours(orange, contours, i, (255, 0, 0), thickness=cv2.FILLED)
