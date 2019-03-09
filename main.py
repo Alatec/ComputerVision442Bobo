@@ -44,7 +44,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     center = [0,0]
     total = 0
     for i in range(len(contours)):
-        if cv2.contourArea(contours[i]) > 100:
+        if cv2.contourArea(contours[i]) > 1000:
             x, y, w, h = cv2.boundingRect(contours[i])
             #cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
             center[0] += x + w//2
