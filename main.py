@@ -24,10 +24,12 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     orange = cv2.inRange(hsv, (54, 148, 134), (69, 184, 202))
     orange = cv2.cvtColor(orange, cv2.COLOR_GRAY2BGR)
     image = cv2.bitwise_and(orange, image)
-    #pic = cv2.Canny(image, 100, 170)
+
+    orange = cv2.medianBlur(orange, 5)
+    orange = cv2.Canny(orange, 100, 170)
     # show the frame
 
-    cv2.imshow("Frame", image)
+    cv2.imshow("Frame", orange)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
