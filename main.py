@@ -35,19 +35,27 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         if cv2.contourArea(contours[i]) > 100:
             cv2.drawContours(mask, contours, i, (255, 255, 255), thickness=cv2.FILLED)
 
-    mask = cv2.erode(mask, (9,9))
-    mask = cv2.dilate(mask, (9, 9))
+    mask = cv2.erode(mask, (5, 5))
+    mask = cv2.dilate(mask, (5, 5))
     # mask = cv2.Canny(mask, 100, 170)
     contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     # print(len(contours))
-
+    center = np.zeros(2)
     for i in range(len(contours)):
         if cv2.contourArea(contours[i]) > 100:
+            M = cv2.moments(contours[i])
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
             cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
+            center[0] += cX
+            center[1] += cY
+    center = center/len(contours)
+    cv2.circle(image, (center[0], center[1]), 4, (255, 50, 200))
+
     # show the frame
 
-    cv2.imshow("Frame", mask)
+    cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
