@@ -20,7 +20,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # and occupied/unoccupied text
     image = frame.array
     image = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-    orange = cv2.inRange(image, (0, 0, 0), (30, 255, 255))
+    orange = cv2.inRange(image, (0, 70, 70), (15, 180, 160))
     #pic = cv2.Canny(image, 100, 170)
     # show the frame
 
