@@ -49,6 +49,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # show the frame
 
     weightedX = 0
+    weightTotal = 0
     for i in range(len(contours)):
 
         if cv2.contourArea(contours[i]) > 100:
@@ -56,9 +57,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
             #cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
-            weightedX += calcWeight(cX, cY)
+            weight = np.exp(-(640-cY)/200)
+            weightTotal += weight
+            weightedX += weight*cX
 
-    cv2.circle(image, (int(weightedX), 320), 17, (255, 70, 180), -1)
+    avgX = weightedX/weightTotal
+
+    cv2.circle(image, (int(avgX), 320), 17, (255, 70, 180), -1)
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
