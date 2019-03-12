@@ -19,7 +19,7 @@ headTurn = 6000
 headTilt = 6000
 motors = 6000
 turn = 6000
-amount = 900
+amount = 1200
 
 turn = 6000
 bobo.setTarget(TURN, turn)

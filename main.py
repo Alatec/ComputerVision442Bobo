@@ -50,7 +50,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # show the frame
 
     weightedX = 0
-    weightTotal = 0
+    weightTotal = 0.01
     for i in range(len(contours)):
 
         if cv2.contourArea(contours[i]) > 100:
@@ -69,12 +69,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
     if(avgX < 260):
-        bg.goLeft(1)
+        bg.goRight(0.25)
         bg.stop()
     elif (avgX > 380):
-        bg.goRight(1)
+        bg.goLeft(0.25)
         bg.stop()
     else:
+        bg.goForward(0.5)
         bg.stop()
 
     # clear the stream in preparation for the next frame

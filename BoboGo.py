@@ -6,26 +6,27 @@ BODY = 0
 HEADTILT = 4
 HEADTURN = 3
 zeroed = 6000
-amount = 600
+Tamount = 900
+Famount = 1400
 
 bobo = maestro.Controller()
 
 def goLeft(delay):
-    bobo.setTarget(TURN, zeroed - amount)
+    bobo.setTarget(TURN, zeroed - Tamount)
     time.sleep(delay)
 
 def goRight(delay):
-    bobo.setTarget(TURN, zeroed + amount)
+    bobo.setTarget(TURN, zeroed + Tamount)
     time.sleep(delay)
 
 
 def goForward(delay):
-    bobo.setTarget(MOTORS, zeroed + amount)
+    bobo.setTarget(MOTORS, zeroed - Famount)
     time.sleep(delay)
 
 
 def goBackward(delay):
-    bobo.setTarget(MOTORS, zeroed - amount)
+    bobo.setTarget(MOTORS, zeroed - Famount)
     time.sleep(delay)
 
 def stop():
