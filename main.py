@@ -37,7 +37,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # and occupied/unoccupied text
     image = frame.array
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-    #hsv = cv2.medianBlur(hsv, 5)
+    hsv = cv2.medianBlur(hsv, 5)
     orange = cv2.inRange(hsv, (19, 83, 231), (21, 103, 246))
 
     orange = cv2.medianBlur(orange, 5)
