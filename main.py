@@ -37,16 +37,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # and occupied/unoccupied text
     image = frame.array
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-    hsv = cv2.medianBlur(hsv, 5)
-    orange = cv2.inRange(hsv, (19, 83, 231), (21, 103, 246))
 
+    orange = cv2.inRange(hsv, (19, 83, 231), (21, 103, 246))
     orange = cv2.medianBlur(orange, 5)
     #contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    canny = cv2.Canny(orange, 100, 170)
+    #canny = cv2.Canny(orange, 100, 170)
 
     # show the frame
 
-    cv2.imshow("Frame", canny)
+    cv2.imshow("Frame", orange)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
