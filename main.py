@@ -58,7 +58,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             #cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
             weightedX += calcWeight(cX, cY)
 
-    cv2.circle(image, (weightedX, 320), 17, (255, 70, 180), -1)
+    cv2.circle(image, (int(weightedX), 320), 17, (255, 70, 180), -1)
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
