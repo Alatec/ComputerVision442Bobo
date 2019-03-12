@@ -21,6 +21,9 @@ motors = 6000
 turn = 6000
 amount = 400
 
+def calcWeight(x, y):
+    return np.exp(-(640-y)/200)*x
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (640, 480)
@@ -45,14 +48,17 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # show the frame
 
+    weightedX = 0
     for i in range(len(contours)):
 
         if cv2.contourArea(contours[i]) > 100:
-          M = cv2.moments(contours[i])
-          cX = int(M["m10"] / M["m00"])
-          cY = int(M["m01"] / M["m00"])
-          cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
-    
+            M = cv2.moments(contours[i])
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            #cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
+            weightedX += calcWeight(cX, cY)
+
+    cv2.circle(image, (weightedX, 320), 17, (255, 70, 180), -1)
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
