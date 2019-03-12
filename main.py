@@ -68,11 +68,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
-    if(avgX < 300):
-        bg.goLeft(0.5)
+    if(avgX < 260):
+        bg.goLeft(1)
         bg.stop()
-    elif (avgX > 340):
-        bg.goRight(0.5)
+    elif (avgX > 380):
+        bg.goRight(1)
         bg.stop()
     else:
         bg.stop()

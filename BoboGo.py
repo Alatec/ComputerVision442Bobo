@@ -6,7 +6,7 @@ BODY = 0
 HEADTILT = 4
 HEADTURN = 3
 zeroed = 6000
-amount = 400
+amount = 600
 
 bobo = maestro.Controller()
 
@@ -29,5 +29,5 @@ def goBackward(delay):
     time.sleep(delay)
 
 def stop():
-    for i in range(5):
+    for i in range(3):
         bobo.setTarget(i, 6000)
