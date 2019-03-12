@@ -4,6 +4,7 @@ from picamera import PiCamera
 import time
 import cv2
 import numpy as np
+import BoboGo as bg
 
 import maestro
 
@@ -64,8 +65,17 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     avgX = weightedX/weightTotal
 
     cv2.circle(image, (int(avgX), 320), 17, (255, 70, 180), -1)
+
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
+    if(avgX < 300):
+        bg.goLeft(0.5)
+        bg.stop()
+    elif (avgX > 340):
+        bg.goRight(0.5)
+        bg.stop()
+    else:
+        bg.stop()
 
     # clear the stream in preparation for the next frame
     rawCapture.truncate(0)

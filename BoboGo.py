@@ -27,3 +27,7 @@ def goForward(delay):
 def goBackward(delay):
     bobo.setTarget(MOTORS, zeroed - amount)
     time.sleep(delay)
+
+def stop():
+    for i in range(5):
+        bobo.setTarget(i, 6000)
