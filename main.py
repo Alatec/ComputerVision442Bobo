@@ -38,52 +38,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
     #hsv = cv2.medianBlur(hsv, 5)
-    orange = cv2.inRange(hsv, (80, 77, 61), (89, 131, 133))
-
-
+    orange = cv2.inRange(hsv, (19, 83, 231), (21, 103, 246))
 
     orange = cv2.medianBlur(orange, 5)
-    contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-    mask = np.empty_like(orange)
-
-    # for i in range(len(contours)):
-    #     if cv2.contourArea(contours[i]) > 100:
-    #         cv2.drawContours(mask, contours, i, (255, 255, 255), thickness=cv2.FILLED)
-
-    # mask = cv2.erode(mask, (5, 5))
-    # mask = cv2.dilate(mask, (5, 5))
-    # mask = cv2.Canny(mask, 100, 170)
-    # contours, ret = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    # print(len(contours))
-    center = [0,0]
-    total = 0
-    for i in range(len(contours)):
-        if cv2.contourArea(contours[i]) > 100:
-            x, y, w, h = cv2.boundingRect(contours[i])
-            #cv2.drawContours(image, contours, i, (255, 255, 255), thickness=cv2.FILLED)
-            center[0] += x + w//2
-            center[1] += y + h//2
-            total += 1
-    print(center)
-    center[0] = center[0]/(total + 1)
-    center[1] = center[1]/(total + 1)
-
-    cv2.circle(image, (int(center[0]), int(center[1])), 15, (255, 50, 200), thickness=cv2.FILLED)
-
-    if center[1] < 100 and center[1] > 10:
-        bobo.setTarget(TURN, 7000)
-    elif center[1] > 100:
-        bobo.setTarget(TURN, 5000)
-    elif center[1] < 10:
-        bobo.setTarget(TURN, 6000)
-    else:
-        bobo.setTarget(TURN, 6000)
+    #contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    canny = cv2.Canny(orange, 100, 170)
 
     # show the frame
 
-    cv2.imshow("Frame", image)
+    cv2.imshow("Frame", canny)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
