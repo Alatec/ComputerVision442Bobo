@@ -33,7 +33,7 @@ def calcTurnTime(x):
     return 0.02*((x-320)/160)**2 + 0.25
     #return 0.25
 def calcTurnAmount(x):
-    return 200*((x-320)/160)**2 + 800
+    return 200*((x-320)/160)**2 + 900
 
 
 # initialize the camera and grab a reference to the raw camera capture
