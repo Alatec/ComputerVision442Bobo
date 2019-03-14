@@ -5,8 +5,8 @@ import time
 face = np.zeros((480,800, 4), np.uint8)
 happyFace = cv2.imread("faces/HappyFace.png", -1)
 lookLeft = cv2.imread("faces/LookLeft.png", -1)
-lookRight = cv2.imread("faces/LookRight.png")
-rbf = cv2.imread("faces/RBF.png", cv2.IMREAD_GRAYSCALE)
+lookRight = cv2.imread("faces/LookRight.png", -1)
+rbf = cv2.imread("faces/RBF.png", -1)
 
 # cv2.namedWindow("Bobo", cv2.WND_PROP_FULLSCREEN)
 # cv2.setWindowProperty("Bobo", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)

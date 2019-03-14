@@ -92,7 +92,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
    # cv2.circle(image, (int(avgX), 320), 17, (255, 70, 180), -1)
 
-    cv2.imshow("Frame", image)
+    #cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
     if(avgX < 260 and avgX != 0):
         cv2.imshow("Frame", bf.showRight())
