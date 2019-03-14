@@ -5,6 +5,7 @@ import time
 import cv2
 import numpy as np
 import BoboGo as bg
+import BoboFace as bf
 
 import maestro
 
@@ -94,14 +95,19 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
     if(avgX < 260 and avgX != 0):
+        cv2.imshow("Frame", bf.showRight())
         bg.goRight(calcTurnTime(avgX), calcTurnAmount(avgX))
         bg.stop()
     elif (avgX > 380 and avgX != 0):
+        cv2.imshow("Frame", bf.showLeft())
         bg.goLeft(calcTurnTime(avgX), calcTurnAmount(avgX))
         bg.stop()
     elif (move):
+        cv2.imshow("Frame", bf.showRBF())
         bg.goForward(0.5)
         bg.stop()
+    else:
+        cv2.imshow("Frame", bf.showHappy())
 
     # clear the stream in preparation for the next frame
     rawCapture.truncate(0)
