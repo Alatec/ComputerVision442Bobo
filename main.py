@@ -23,7 +23,7 @@ motors = 6000
 turn = 6000
 amount = 400
 
-robotLabNight = ((22, 30, 130), (32, 255, 255))
+robotLabNight = ((22, 20, 60), (32, 255, 255))
 physicsLab = ((10, 63, 100), (25, 255, 255))
 clockworkOrange =  robotLabNight
 
@@ -34,7 +34,7 @@ def calcTurnTime(x):
     return 0.02*((x-320)/160)**2 + 0.25
     #return 0.25
 def calcTurnAmount(x):
-    return 200*((x-320)/160)**2 + 900
+    return 200*((x-320)/160)**2 + 800
 
 
 # initialize the camera and grab a reference to the raw camera capture
@@ -107,6 +107,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         bg.goForward(0.5)
         bg.stop()
     else:
+        #bobo.setTarget(4, 6000)
         cv2.imshow("Frame", bf.showHappy())
 
     # clear the stream in preparation for the next frame
