@@ -35,21 +35,17 @@ def goBackward(delay):
     bobo.setTarget(MOTORS, zeroed + Famount)
     time.sleep(delay)
 
-def lookUp(delay, amount):
+def lookUp(amount):
 	bobo.setTarget(HEADTILT, up)
-	time.sleep(delay)
 
-def lookDown(delay, amount):
+def lookDown(amount):
 	bobo.setTarget(HEADTILT, down)
-	time.sleep(delay)
 
-def lookRight(delay, amount):
+def lookRight(amount):
 	bobo.setTarget(HEADTURN, right)
-	time.sleep(delay)
 
-def lookLeft(delay, amount):
+def lookLeft(amount):
 	bobo.setTarger(HEADTURN, left)
-	time.sleep(delay)
 
 def stop():
     for i in range(3):

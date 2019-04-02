@@ -7,33 +7,32 @@ centerTop = 280
 centerBot = 360
 
 amount = 200
-delay = 0.2
 
 
 def findFace(y, x):
     if x >= centerLeft and x <= centerRight:
         if y <= centerTop:
-            bg.lookUp(delay, amount)
+            bg.lookUp(amount)
         elif y >= centerBot:
-            bg.lookDown(delay, amount)
+            bg.lookDown(amount)
         else:
             print("Stay put, Bobo baby")
             #move forward/backwards
     elif x <= centerLeft:
-        bg.lookLeft(delay, amount)
+        bg.lookLeft(amount)
         if y <= centerTop:
-            bg.lookUp(delay, amount)
+            bg.lookUp(amount)
         elif y >= centerBot:
-            bg.lookDown(delay, amount)
+            bg.lookDown(amount)
         else:
             print("Look at me, Bobo baby")
             #turn body to face direction
     elif x >= centerRight:
-        bg.lookRight(delay, amount)
+        bg.lookRight(amount)
         if y <= centerTop:
-            bg.lookUp(delay, amount)
+            bg.lookUp(amount)
         elif y >= centerBot:
-            bg.lookDown(delay, amount)
+            bg.lookDown(amount)
         else:
             print("Look at me, Bobo baby")
             #turn body to face direction
