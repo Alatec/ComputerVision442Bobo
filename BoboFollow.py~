@@ -1,5 +1,4 @@
 # import the necessary packages
-#Arynn Collins and Andrew Johnson
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
@@ -93,28 +92,23 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
    # cv2.circle(image, (int(avgX), 320), 17, (255, 70, 180), -1)
 
-    cv2.imshow("Frame", image)
+    #cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
     if(avgX < 260 and avgX != 0):
-        #cv2.imshow("Frame", bf.showRight())
+        cv2.imshow("Frame", bf.showRight())
         bg.goRight(calcTurnTime(avgX), calcTurnAmount(avgX))
         bg.stop()
     elif (avgX > 380 and avgX != 0):
-        #cv2.imshow("Frame", bf.showLeft())
+        cv2.imshow("Frame", bf.showLeft())
         bg.goLeft(calcTurnTime(avgX), calcTurnAmount(avgX))
         bg.stop()
     elif (move):
-        #cv2.imshow("Frame", bf.showRBF())
+        cv2.imshow("Frame", bf.showRBF())
         bg.goForward(0.5)
         bg.stop()
-<<<<<<< HEAD
     else:
         #bobo.setTarget(4, 6000)
         cv2.imshow("Frame", bf.showHappy())
-=======
-    # else:
-    #     cv2.imshow("Frame", bf.showHappy())
->>>>>>> 1dd676675fb50473c5705e9e640e62f2f8562563
 
     # clear the stream in preparation for the next frame
     rawCapture.truncate(0)
