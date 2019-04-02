@@ -50,75 +50,23 @@ time.sleep(0.1)
 cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+face_cascade = cv2.CascadeClassifier('facefile.xml')
+
 bg.start()
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
-    image = frame.array
-    hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
 
-    orange = cv2.inRange(hsv, *clockworkOrange)
-    orange = cv2.medianBlur(orange, 5)
-    #contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #canny = cv2.Canny(orange, 100, 170)
-    contours, ret = cv2.findContours(orange, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    # show the frame
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    print(faces)
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-    weightedX = 0
-    weightTotal = 0.01
+    cv2.imshow("Frame", frame)
 
-    move = False
-    for i in range(len(contours)):
-        
-        if cv2.contourArea(contours[i]) > 100:
-            move = True
-            M = cv2.moments(contours[i])
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.drawContours(image, contours, i, (255, 0, 0), thickness=cv2.FILLED)
-            cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
-
-            weight = np.exp(-(480-cY)/120)
-            weightTotal += weight
-            weightedX += weight*cX
-            framesNoOrange=0
-        #else:
-            #framesNoOrange+=1
-            #print(framesNoOrange)
-            
-
-    
-    avgX = weightedX/weightTotal
-
-   # cv2.circle(image, (int(avgX), 320), 17, (255, 70, 180), -1)
-
-    cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
-    if(avgX < 260 and avgX != 0):
-        #cv2.imshow("Frame", bf.showRight())
-        bg.goRight(calcTurnTime(avgX), calcTurnAmount(avgX))
-        bg.stop()
-    elif (avgX > 380 and avgX != 0):
-        #cv2.imshow("Frame", bf.showLeft())
-        bg.goLeft(calcTurnTime(avgX), calcTurnAmount(avgX))
-        bg.stop()
-    elif (move):
-        #cv2.imshow("Frame", bf.showRBF())
-        bg.goForward(0.5)
-        bg.stop()
-<<<<<<< HEAD
-    else:
-        #bobo.setTarget(4, 6000)
-        cv2.imshow("Frame", bf.showHappy())
-=======
-    # else:
-    #     cv2.imshow("Frame", bf.showHappy())
->>>>>>> 1dd676675fb50473c5705e9e640e62f2f8562563
-
-    # clear the stream in preparation for the next frame
-    rawCapture.truncate(0)
-
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         bg.stop()
