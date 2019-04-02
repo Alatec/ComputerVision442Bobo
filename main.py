@@ -24,10 +24,6 @@ motors = 6000
 turn = 6000
 amount = 400
 
-robotLabNight = ((22, 20, 60), (32, 255, 255))
-physicsLab = ((10, 63, 100), (25, 255, 255))
-clockworkOrange =  robotLabNight
-
 def calcWeight(x, y):
     return np.exp(-(480-y)/0.01)*x
 
@@ -46,27 +42,28 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 
 
 # allow the camera to warmup
-time.sleep(0.1)
+time.sleep(0.5)
 cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 face_cascade = cv2.CascadeClassifier('facefile.xml')
 
-bg.start()
+#bg.start()
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
-
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    image = frame.array
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     print(faces)
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-    cv2.imshow("Frame", frame)
+    cv2.imshow("Frame", image)
 
     key = cv2.waitKey(1) & 0xFF
+    rawCapture.truncate(0)
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         bg.stop()
