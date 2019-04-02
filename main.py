@@ -6,8 +6,8 @@ import time
 import cv2
 import numpy as np
 import BoboGo as bg
-import BoboFace as bf
-
+#import BoboFace as bf
+import BoboFollow as bf 
 import maestro
 
 MOTORS = 1
@@ -57,10 +57,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     print(faces)
-    for (x, y, w, h) in faces:
-        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
-        findFace(y,x)
 
+    for face in faces:
+        cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
+        bf.findFace(face[1], face[0])
     cv2.imshow("Frame", image)
 
     key = cv2.waitKey(1) & 0xFF
