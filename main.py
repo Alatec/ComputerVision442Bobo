@@ -59,6 +59,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     print(faces)
     for (x, y, w, h) in faces:
         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        findFace(y,x)
 
     cv2.imshow("Frame", image)
 

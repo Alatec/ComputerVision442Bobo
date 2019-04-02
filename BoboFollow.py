@@ -1,104 +1,43 @@
-# import the necessary packages
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import time
-import cv2
-import numpy as np
 import BoboGo as bg
-import BoboFace as bf
 
-import maestro
+# defines the y,x values of the center bounding area
+centerLeft = 200
+centerRight = 280
+centerTop = 280
+centerBot = 360
 
-MOTORS = 1
-TURN = 2
-BODY = 0
-HEADTILT = 4
-HEADTURN = 3
-
-bobo = maestro.Controller()
-body = 6000
-headTurn = 6000
-headTilt = 6000
-motors = 6000
-turn = 6000
 amount = 200
-
-face_cascade = cv2.CascadeClassifier 
-
-def calcWeight(x, y):
-    return np.exp(-(480-y)/0.01)*x
-def calcTurnTime(x):
-    return 0.02*((x-320)/160)**2 + 0.25
-    #return 0.25
-def calcTurnAmount(x):
-    return 200*((x-320)/160)**2 + 800
+delay = 0.2
 
 
-# initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
-camera.resolution = (640, 480)
-camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+def findFace(y, x):
+    if x >= centerLeft and x <= centerRight:
+        if y <= centerTop:
+            bg.lookUp(delay, amount)
+        elif y >= centerBot:
+            bg.lookDown(delay, amount)
+        else:
+            print("Stay put, Bobo baby")
+            #move forward/backwards
+    elif x <= centerLeft:
+        bg.lookLeft(delay, amount)
+        if y <= centerTop:
+            bg.lookUp(delay, amount)
+        elif y >= centerBot:
+            bg.lookDown(delay, amount)
+        else:
+            print("Look at me, Bobo baby")
+            #turn body to face direction
+    elif x >= centerRight:
+        bg.lookRight(delay, amount)
+        if y <= centerTop:
+            bg.lookUp(delay, amount)
+        elif y >= centerBot:
+            bg.lookDown(delay, amount)
+        else:
+            print("Look at me, Bobo baby")
+            #turn body to face direction
 
-
-# allow the camera to warmup
-time.sleep(0.1)
-cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
-cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-bg.start()
-# capture frames from the camera
-for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    # grab the raw NumPy array representing the image, then initialize the timestamp
-    # and occupied/unoccupied text
-    image = frame.array
-    
-
-    weightedX = 0
-    weightTotal = 0.01
-
-    move = False
-    for i in range(len(contours)):
-        
-        if cv2.contourArea(contours[i]) > 100:
-            #move = True
-            M = cv2.moments(contours[i])
-            cX = int(M["m10"] / M["m00"])
-            cY = int(M["m01"] / M["m00"])
-            cv2.drawContours(image, contours, i, (255, 0, 0), thickness=cv2.FILLED)
-            cv2.circle(image, (cX, cY), 7, (255, 70, 180), -1)
-
-            weight = np.exp(-(480-cY)/120)
-            weightTotal += weight
-            weightedX += weight*cX
-	#else:            
-
-    
-    avgX = weightedX/weightTotal
-
- 
-    #cv2.imshow("Frame", image)
-    key = cv2.waitKey(1) & 0xFF
-    if(avgX < 260 and avgX != 0):
-        cv2.imshow("Frame", bf.showRight())
-#        bg.goRight(calcTurnTime(avgX), calcTurnAmount(avgX))
-        bg.stop()
-    elif (avgX > 380 and avgX != 0):
-        cv2.imshow("Frame", bf.showLeft())
-#        bg.goLeft(calcTurnTime(avgX), calcTurnAmount(avgX))
-        bg.stop()
-    elif (move):
-        cv2.imshow("Frame", bf.showRBF())
-#        bg.goForward(0.5)
-        bg.stop()
     else:
-        #bobo.setTarget(4, 6000)
-        cv2.imshow("Frame", bf.showHappy())
+        print("rip")
 
-    # clear the stream in preparation for the next frame
-    rawCapture.truncate(0)
-
-    # if the `q` key was pressed, break from the loop
-    if key == ord("q"):
-        bg.stop()
-        break
