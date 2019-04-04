@@ -10,32 +10,20 @@ amount = 100
 
 
 def findFace(y, x):
-    if x >= centerLeft and x <= centerRight:
-        if x <= centerRight and y <= centerTop:
-            bg.lookUp(amount)
-        elif x <= centerRight and y >= centerBot:
-            bg.lookDown(amount)
-        else:
-            print("Stay put, Bobo baby")
-            #move forward/backwards
-    elif x <= centerLeft:
-        bg.lookLeft(amount)
-        if y <= centerTop:
-            bg.lookUp(amount)
-        elif y >= centerBot:
-            bg.lookDown(amount)
-        else:
-            print("Look at me, Bobo baby")
+           
             #turn body to face direction
+
+    if x <= centerLeft:
+        bg.lookLeft(amount)
     elif x >= centerRight:
         bg.lookRight(amount)
-        if y <= centerTop:
-            bg.lookUp(amount)
-        elif y >= centerBot:
-            bg.lookDown(amount)
-        else:
-            print("Look at me, Bobo baby")
-            #turn body to face direction
+        print("Look at me, Bobo baby")
+
+    if y <= centerTop:
+        bg.lookUp(amount)
+    elif y >= centerBot:
+        bg.lookDown(amount)
+        print("Stay put, Bobo baby")
 
     else:
         print("rip")
