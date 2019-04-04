@@ -9,8 +9,6 @@ zeroed = 6000
 Tamount = 900
 Famount = 800
 up = 6000
-down = 6000
-right = 6000
 left = 6000
 
 bobo = maestro.Controller()
@@ -41,19 +39,19 @@ def lookUp(amount):
     bobo.setTarget(HEADTILT, up)
 
 def lookDown(amount):
-    global down
-    down += amount
-    bobo.setTarget(HEADTILT, down)
+    global up
+    up -= amount
+    bobo.setTarget(HEADTILT, up)
 
 def lookRight(amount):
-    global right
-    right += amount
-    bobo.setTarget(HEADTURN, right)
+    global left
+    left -= amount
+    bobo.setTarget(HEADTURN, left)
 
 def lookLeft(amount):
     global left
     left += amount
-    bobo.setTarger(HEADTURN, left)
+    bobo.setTarget(HEADTURN, left)
 
 def stop():
     for i in range(5):
