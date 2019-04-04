@@ -38,6 +38,7 @@ def calcTurnAmount(x):
 camera = PiCamera()
 camera.resolution = (640, 480)
 camera.framerate = 32
+# camera. Ill figure it out
 rawCapture = PiRGBArray(camera, size=(640, 480))
 
 
@@ -54,6 +55,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
+    image = cv2.flip(image, 0)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     print(faces)
@@ -61,7 +63,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     for face in faces:
         cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
         print("y = " + str(face[1]) + "   x = " + str(face[0]))
-        bf.findFace(face[1], face[0])
+        bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
     cv2.imshow("Frame", image)
 
     key = cv2.waitKey(1) & 0xFF
