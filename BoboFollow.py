@@ -11,9 +11,9 @@ amount = 100
 
 def findFace(y, x):
     if x >= centerLeft and x <= centerRight:
-        if y <= centerTop:
+        if x <= centerRight and y <= centerTop:
             bg.lookUp(amount)
-        elif y >= centerBot:
+        elif x <= centerRight and y >= centerBot:
             bg.lookDown(amount)
         else:
             print("Stay put, Bobo baby")
