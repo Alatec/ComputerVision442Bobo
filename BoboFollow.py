@@ -3,10 +3,10 @@ import BoboGo as bg
 # defines the y,x values of the center bounding area
 centerLeft = 200
 centerRight = 280
-centerTop = 280
-centerBot = 360
+centerTop = 300
+centerBot = 340
 
-amount = 200
+amount = 100
 
 
 def findFace(y, x):
