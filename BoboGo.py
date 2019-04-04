@@ -36,21 +36,25 @@ def goBackward(delay):
     time.sleep(delay)
 
 def lookUp(amount):
+    global up
     up += amount
-	bobo.setTarget(HEADTILT, up)
+    bobo.setTarget(HEADTILT, up)
 
 def lookDown(amount):
+    global down
     down += amount
-	bobo.setTarget(HEADTILT, down)
+    bobo.setTarget(HEADTILT, down)
 
 def lookRight(amount):
+    global right
     right += amount
-	bobo.setTarget(HEADTURN, right)
+    bobo.setTarget(HEADTURN, right)
 
 def lookLeft(amount):
+    global left
     left += amount
-	bobo.setTarger(HEADTURN, left)
+    bobo.setTarger(HEADTURN, left)
 
 def stop():
-    for i in range(3):
+    for i in range(5):
         bobo.setTarget(i, 6000)
