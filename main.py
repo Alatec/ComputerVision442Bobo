@@ -60,7 +60,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     for face in faces:
         cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
-        print("y = " + face[1] + "   x = " + face[0])
+        print("y = " + str(face[1]) + "   x = " + str(face[0]))
         bf.findFace(face[1], face[0])
     cv2.imshow("Frame", image)
 
