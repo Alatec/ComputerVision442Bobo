@@ -36,15 +36,19 @@ def goBackward(delay):
     time.sleep(delay)
 
 def lookUp(amount):
+    up += amount
 	bobo.setTarget(HEADTILT, up)
 
 def lookDown(amount):
+    down += amount
 	bobo.setTarget(HEADTILT, down)
 
 def lookRight(amount):
+    right += amount
 	bobo.setTarget(HEADTURN, right)
 
 def lookLeft(amount):
+    left += amount
 	bobo.setTarger(HEADTURN, left)
 
 def stop():
