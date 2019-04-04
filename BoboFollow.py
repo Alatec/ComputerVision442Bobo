@@ -1,4 +1,5 @@
 import BoboGo as bg
+import cv2
 
 # defines the y,x values of the center bounding area
 centerLeft = 200
@@ -10,7 +11,7 @@ amount = 100
 
 
 def findFace(y, x):
-           
+
             #turn body to face direction
 
     if x <= centerLeft:
@@ -28,3 +29,9 @@ def findFace(y, x):
     else:
         print("rip")
 
+def getThirds(image):
+    cv2.line(image, (centerLeft, 0), (centerLeft, 639), (0, 255, 0), 2)
+    cv2.line(image, (centerRight, 0), (centerRight, 639), (0, 255, 0), 2)
+    cv2.line(image, (0, centerTop), (479, centerTop), (0, 255, 0), 2)
+    cv2.line(image, (0, centerBot), (479, centerBot), (0, 255, 0), 2)
+    return image
