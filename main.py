@@ -10,7 +10,7 @@ import BoboGo as bg
 import BoboFollow as bf 
 import maestro
 
-from huntersclient import ClientSocket
+#from huntersclient import ClientSocket
 import socket, time
 import threading
 import queue
