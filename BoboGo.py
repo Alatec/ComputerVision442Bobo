@@ -56,3 +56,6 @@ def lookLeft(amount):
 def stop():
     for i in range(5):
         bobo.setTarget(i, 6000)
+
+def getServoValues():
+    return up, left

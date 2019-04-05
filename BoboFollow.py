@@ -11,19 +11,25 @@ amount = 100
 
 
 def findFace(y, x):
+    ret = False
     if x <= centerLeft:
         bg.lookLeft(amount)
+        ret = True
     elif x >= centerRight:
         bg.lookRight(amount)
+        ret = True
         print("Look at me, Bobo baby")
 
     if y <= centerTop:
         bg.lookUp(amount)
+        ret = True
     elif y >= centerBot:
         bg.lookDown(amount)
+        ret = True
         print("Stay put, Bobo baby")
-    else:
-        print("rip")
+
+
+    return ret
 
 def getThirds(image):
     cv2.line(image, (centerLeft, 0), (centerLeft, 639), (0, 255, 0), 2)

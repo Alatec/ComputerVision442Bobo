@@ -33,6 +33,10 @@ motors = 6000
 turn = 6000
 amount = 400
 
+state = 0
+frameCount = 0
+scanDir = 1
+
 def calcWeight(x, y):
     return np.exp(-(480-y)/0.01)*x
 
@@ -58,23 +62,58 @@ cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 face_cascade = cv2.CascadeClassifier('facefile.xml')
 
+def scan():
+    global scanDir
+    up, left = bg.getServoValues()
+    if scanDir == 0:
+        bg.lookLeft(100)
+        if left >= 8000:
+            scanDir = 1
+    else:
+        bg.lookRight(100)
+        if left <= 4000:
+            scanDir = 0
+
+
+
+
 #bg.start()
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    # State Logic
+    if state == 0:
+        scan()
+    elif state == 2:
+        up, left = bg.getServoValues()
+        if left > 6500:
+            bg.goLeft(100)
+        elif left < 5500:
+            bg.goRight(100)
+        else:
+            bg.goLeft(0)
+
+
+
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    if state == 0 and faces is not None: state = 1
+
     print(faces)
 
     for face in faces:
-        cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
-        cv2.circle(image, (int(face[0]+face[2]/2), int(face[1]+face[3]/2)), 10, (182, 25, 255))
-        bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
+            cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
+            cv2.circle(image, (int(face[0]+face[2]/2), int(face[1]+face[3]/2)), 10, (182, 25, 255))
+            ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
+            if not ret:
+                frameCount+=1
+            if frameCount > 50 and state == 1:
+                state = 2
 #        for i in ["Hello human", "dumb bitch"]:
-#            time.sleep(1)
+#            time.sleep
 #            client.sendData(i)
 
     
@@ -89,3 +128,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == ord("q"):
         bg.stop()
         break
+
+
+
