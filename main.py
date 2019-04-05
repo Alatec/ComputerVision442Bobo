@@ -97,8 +97,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             hasTorqued = bg.torqueLeft(hasTorqued, 725)
         else:
             bg.goLeft(0.01, 0)
-	    frameCount = 0
-	    state = 3
+            frameCount = 0
+            state = 3
 
 
 
@@ -111,19 +111,19 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if state == 0 and faces is not None: state = 1
 
     for face in faces:
-            cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
-            cv2.circle(image, (int(face[0]+face[2]/2), int(face[1]+face[3]/2)), 10, (182, 25, 255))
-            ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
-            if not ret:
-                frameCount+=1
+        cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
+        cv2.circle(image, (int(face[0]+face[2]/2), int(face[1]+face[3]/2)), 10, (182, 25, 255))
+        ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
+        if not ret:
+            frameCount+=1
             if frameCount > 30 and state == 1:
                 state = 2
-	    elif frameCount > 60 and state == 3:
-	        print(frameCount)
-	        for i in ["Hello human"]:
-                    time.sleep
-                    client.sendData(i)
- 		state = 0
+        elif frameCount > 60 and state == 3:
+            print(frameCount)
+            for i in ["Hello human"]:
+                time.sleep
+                client.sendData(i)
+        state = 0
 
     
     
