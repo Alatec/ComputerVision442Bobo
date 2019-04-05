@@ -23,7 +23,7 @@ HEADTURN = 3
 
 IP = '10.200.7.125'
 PORT = 5010
-client = ClientSocket(IP, PORT)
+
 
 bobo = maestro.Controller()
 body = 6000
@@ -68,16 +68,15 @@ def scan():
     up, left = bg.getServoValues()
     print("Titties      " + str(up) + ", " + str(left))
     if scanDir == 0:
-        bg.lookLeft(100)
+        print("inside scan ---> scanDir = 0")
+        bg.lookLeft(50)
         if left >= 8000:
             scanDir = 1
-    else:
-        bg.lookRight(100)
+    elif scanDir == 1:
+        print("inside scan ---> scanDir = 1")
+        bg.lookRight(50)
         if left <= 4000:
             scanDir = 0
-
-
-
 
 #bg.start()
 # capture frames from the camera
@@ -87,10 +86,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         scan()
     elif state == 2:
         up, left = bg.getServoValues()
-        if left > 6500:
-            bg.goRight(0.01, 800)
-        elif left < 5500:
-            bg.goLeft(0.01, 800)
         if left > 6250:
             hasTorqued = bg.torqueRight(hasTorqued, 725)
         elif left < 5750:
@@ -108,7 +103,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-    if state == 0 and faces is not None: state = 1
+    if state == 0 and faces is not None and frameCount > 5: 
+        state = 1
+        frameCount = 0
 
     for face in faces:
         cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
@@ -116,14 +113,29 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
         if not ret:
             frameCount+=1
-            if frameCount > 30 and state == 1:
+            if frameCount > 15 and state == 1:
                 state = 2
-        elif frameCount > 60 and state == 3:
-            print(frameCount)
-            for i in ["Hello human"]:
-                time.sleep
-                client.sendData(i)
-        state = 0
+            elif frameCount > 15 and state == 3:
+                print("pls work Bobo")
+                client = ClientSocket(IP, PORT)
+                for i in ["Hello human"]:
+                    time.sleep(1)
+                    client.sendData(i)
+                state = 4
+                frameCount = 0
+            elif state == 4:
+                area = face[2]*face[3]
+                if area < 3000:
+                    bg.goForward(0.5)
+                    bg.stopMoving()
+                elif area > 3500:
+                    bg.goBackward(0.5)
+                    bg.stopMoving()
+                else:
+                    state = 0
+                    frameCount = 0
+                print("Area: " + str(area))
+        print(frameCount)
 
     
     

@@ -20,14 +20,14 @@ def start():
 def torqueRight(torque, amount):
     if not torque:
         bobo.setTarget(TURN, 8000)
-        time.sleep(0.1)
+        time.sleep(0.01)
     bobo.setTarget(TURN, zeroed + int(amount))
     return True
 
 def torqueLeft(torque,amount):
     if not torque:
         bobo.setTarget(TURN, 8000)
-        time.sleep(0.1)
+        time.sleep(0.01)
     bobo.setTarget(TURN, zeroed - int(amount))
     return True
 
@@ -71,6 +71,11 @@ def lookLeft(amount):
 def stop():
     for i in range(5):
         bobo.setTarget(i, 6000)
+
+def stopMoving():
+    for i in range(2):
+        bobo.setTarget(i, 6000)
+
 
 def getServoValues():
     return up, left
