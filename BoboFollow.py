@@ -2,10 +2,10 @@ import BoboGo as bg
 import cv2
 
 # defines the y,x values of the center bounding area
-centerLeft = 200
-centerRight = 280
-centerTop = 300
-centerBot = 340
+centerLeft = 300
+centerRight = 340
+centerTop = 220
+centerBot = 260
 
 amount = 100
 

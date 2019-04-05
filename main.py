@@ -10,11 +10,20 @@ import BoboGo as bg
 import BoboFollow as bf 
 import maestro
 
+from huntersclient import ClientSocket
+import socket, time
+import threading
+import queue
+
 MOTORS = 1
 TURN = 2
 BODY = 0
 HEADTILT = 4
 HEADTURN = 3
+
+#IP = '10.200.7.125'
+#PORT = 5010
+#client = ClientSocket(IP, PORT)
 
 bobo = maestro.Controller()
 body = 6000
@@ -62,9 +71,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     for face in faces:
         cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
-        cv2.circle(image, (face[1]+face[3]/2, face[0]+face[2]/2), (182, 25, 255))
+        cv2.circle(image, (int(face[0]+face[2]/2), int(face[1]+face[3]/2)), 10, (182, 25, 255))
         bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
+#        for i in ["Hello human", "dumb bitch"]:
+#            time.sleep(1)
+#            client.sendData(i)
 
+    
+    
     image = bf.getThirds(image)
     image = cv2.flip(image, 1)
     cv2.imshow("Frame", image)

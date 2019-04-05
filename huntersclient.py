@@ -47,18 +47,4 @@ class ClientSocket(threading.Thread):
         print("Goodbye")
         exit()
 
-
-b = maestro.Controller()
-b.setTarget(2, 5000)
-time.sleep(4.2)
-b.setTarget(2,6000)
         
-IP = '10.200.59.242'
-PORT = 5010
-client = ClientSocket(IP, PORT)
-##client.start()
-
-for i in ["hello cory", "I've been expecting you", "Are you feeling lucky?"]:
-    time.sleep(1)
-    client.sendData(i)
-print("Exiting Sends")
