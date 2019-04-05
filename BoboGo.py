@@ -17,6 +17,21 @@ def start():
     time.sleep(0.3)
     bobo.setTarget(4, 1510)
 
+def torqueRight(torque, amount):
+    if not torque:
+        bobo.setTarget(TURN, 8000)
+        time.sleep(0.1)
+    bobo.setTarget(TURN, zeroed + int(amount))
+    return True
+
+def torqueLeft(torque,amount):
+    if not torque:
+        bobo.setTarget(TURN, 8000)
+        time.sleep(0.1)
+    bobo.setTarget(TURN, zeroed - int(amount))
+    return True
+
+    
 def goLeft(delay, amount):
     bobo.setTarget(TURN, zeroed - int(amount))
     time.sleep(delay)

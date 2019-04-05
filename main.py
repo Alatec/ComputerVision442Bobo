@@ -10,7 +10,7 @@ import BoboGo as bg
 import BoboFollow as bf 
 import maestro
 
-#from huntersclient import ClientSocket
+from huntersclient import ClientSocket
 import socket, time
 import threading
 import queue
@@ -21,9 +21,9 @@ BODY = 0
 HEADTILT = 4
 HEADTURN = 3
 
-#IP = '10.200.7.125'
-#PORT = 5010
-#client = ClientSocket(IP, PORT)
+IP = '10.200.7.125'
+PORT = 5010
+client = ClientSocket(IP, PORT)
 
 bobo = maestro.Controller()
 body = 6000
@@ -36,6 +36,7 @@ amount = 400
 state = 0
 frameCount = 0
 scanDir = 1
+hasTorqued = False
 
 def calcWeight(x, y):
     return np.exp(-(480-y)/0.01)*x
@@ -86,12 +87,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         scan()
     elif state == 2:
         up, left = bg.getServoValues()
-        if left > 6500:
-            bg.goRight(0.01, 750)
-        elif left < 5500:
-            bg.goLeft(0.01, 750)
+        if left > 6250:
+            hasTorqued = bg.torqueRight(hasTorqued, 725)
+        elif left < 5750:
+            hasTorqued = bg.torqueLeft(hasTorqued, 725)
         else:
             bg.goLeft(0.01, 0)
+	    frameCount = 0
+	    state = 3
 
 
 
@@ -109,12 +112,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
             if not ret:
                 frameCount+=1
-            if frameCount > 15 and state == 1:
+            if frameCount > 30 and state == 1:
                 state = 2
-            print(frameCount)
-#        for i in ["Hello human", "dumb bitch"]:
-#            time.sleep
-#            client.sendData(i)
+	    elif frameCount > 60 and state == 3:
+	        print(frameCount)
+	        for i in ["Hello human"]:
+                    time.sleep
+                    client.sendData(i)
+ 		state = 0
 
     
     
