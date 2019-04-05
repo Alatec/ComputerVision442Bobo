@@ -86,9 +86,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     elif state == 2:
         up, left = bg.getServoValues()
         if left > 6500:
-            bg.goLeft(0.01, 100)
+            bg.goLeft(0.01, 600)
         elif left < 5500:
-            bg.goRight(0.01, 100)
+            bg.goRight(0.01, 600)
         else:
             bg.goLeft(0.01, 0)
 
@@ -101,8 +101,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     if state == 0 and faces is not None: state = 1
-
-    print(faces)
 
     for face in faces:
             cv2.rectangle(image, (face[0], face[1]), (face[0] + face[2], face[1] + face[3]), (255, 0, 0), 2)
