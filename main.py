@@ -86,11 +86,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     elif state == 2:
         up, left = bg.getServoValues()
         if left > 6500:
-            bg.goLeft(100)
+            bg.goLeft(0.01, 100)
         elif left < 5500:
-            bg.goRight(100)
+            bg.goRight(0.01, 100)
         else:
-            bg.goLeft(0)
+            bg.goLeft(0.01, 0)
 
 
 
