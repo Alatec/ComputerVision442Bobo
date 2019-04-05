@@ -53,7 +53,7 @@ b.setTarget(2, 5000)
 time.sleep(4.2)
 b.setTarget(2,6000)
         
-IP = '10.200.59.242'
+IP = '10.200.7.125'
 PORT = 5010
 client = ClientSocket(IP, PORT)
 ##client.start()
