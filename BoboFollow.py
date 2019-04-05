@@ -18,7 +18,6 @@ def findFace(y, x):
     elif x >= centerRight:
         bg.lookRight(amount)
         ret = True
-        print("Look at me, Bobo baby")
 
     if y <= centerTop:
         bg.lookUp(amount)
@@ -26,8 +25,6 @@ def findFace(y, x):
     elif y >= centerBot:
         bg.lookDown(amount)
         ret = True
-        print("Stay put, Bobo baby")
-
 
     return ret
 
