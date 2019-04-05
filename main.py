@@ -65,6 +65,7 @@ face_cascade = cv2.CascadeClassifier('facefile.xml')
 def scan():
     global scanDir
     up, left = bg.getServoValues()
+    print("Titties      " + str(up) + ", " + str(left))
     if scanDir == 0:
         bg.lookLeft(100)
         if left >= 8000:
@@ -108,7 +109,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             ret = bf.findFace(face[1]+face[3]/2, face[0]+face[2]/2)
             if not ret:
                 frameCount+=1
-            if frameCount > 50 and state == 1:
+            if frameCount > 15 and state == 1:
                 state = 2
             print(frameCount)
 #        for i in ["Hello human", "dumb bitch"]:
