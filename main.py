@@ -10,7 +10,7 @@ import BoboGo as bg
 import BoboFollow as bf 
 import maestro
 
-from huntersclient import ClientSocket
+#from huntersclient import ClientSocket
 import socket, time
 import threading
 import queue
@@ -112,6 +112,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 frameCount+=1
             if frameCount > 50 and state == 1:
                 state = 2
+            print(frameCount)
 #        for i in ["Hello human", "dumb bitch"]:
 #            time.sleep
 #            client.sendData(i)
